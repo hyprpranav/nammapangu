@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="ta, en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ration Distribution &amp; Load Cell | NAMMAPANGU – நம்ம பங்கு</title>
+  <link rel="icon" type="image/png" href="assets/images/Tamil_nadu_logo.png">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/responsive.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Tamil:wght@400;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- PROTOTYPE DISCLAIMER -->
+  <div class="prototype-banner">
+    <span class="prototype-badge">Prototype Demonstration</span>
+    <span>Inspired by Tamil Nadu Public Distribution System (PDS) | Academic / Research Model – Not an Official Government Portal</span>
+  </div>
+
+  <!-- GOVERNMENT BRANDING HEADER -->
+  <header class="app-header">
+    <div class="header-left">
+      <button class="mobile-nav-toggle" id="mobileNavToggle" aria-label="Toggle navigation">
+        <svg class="icon-svg" viewBox="0 0 24 24"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+      </button>
+      <img src="assets/images/Tamil_nadu_logo.png" alt="TN Logo" class="tn-emblem">
+      <div class="brand-titles">
+        <div class="gov-subtext">
+          <span>தமிழ்நாடு அரசு</span> • <span>PUBLIC DISTRIBUTION SYSTEM</span>
+        </div>
+        <div class="brand-main-title">
+          <span>NAMMAPANGU</span>
+          <span class="brand-tamil">நம்ம பங்கு</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="header-right">
+      <div class="cm-portrait-container">
+        <img src="assets/images/CM Vijay.jpg" alt="Hon'ble Chief Minister" class="cm-photo">
+        <div class="cm-details">
+          <span class="cm-role">மாண்புமிகு முதலமைச்சர்</span>
+          <span class="cm-name">Hon'ble Chief Minister</span>
+          <span class="cm-tag">Public Service Automation</span>
+        </div>
+      </div>
+
+      <div class="header-meta">
+        <div id="liveClock" class="live-clock">--:--:--</div>
+        <div class="hardware-quick-badge">
+          <span class="pulse-dot"></span>
+          <span>ESP32 Ready</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- APP CONTAINER -->
+  <div class="app-container">
+
+    <!-- SIDEBAR NAVIGATION -->
+    <aside class="app-sidebar">
+      <div class="sidebar-menu-wrapper">
+        <div class="sidebar-heading">PDS Operations</div>
+        <ul class="nav-list">
+          <li class="nav-item">
+            <a href="dashboard.html">
+              <span class="nav-icon"><svg class="icon-svg" viewBox="0 0 24 24"><rect width="7" height="9" x="3" y="3" rx="1"></rect><rect width="7" height="5" x="14" y="3" rx="1"></rect><rect width="7" height="9" x="14" y="12" rx="1"></rect><rect width="7" height="5" x="3" y="16" rx="1"></rect></svg></span>
+              <div class="nav-labels">
+                <span class="nav-title-en">Dashboard</span>
+                <span class="nav-title-ta">கண்ணோட்டம்</span>
+              </div>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="users.html">
+              <span class="nav-icon"><svg class="icon-svg" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg></span>
+              <div class="nav-labels">
+                <span class="nav-title-en">Users</span>
+                <span class="nav-title-ta">பயனாளர்கள்</span>
+              </div>
+            </a>
+          </li>
+          <li class="nav-item primary-scanner">
+            <a href="scanner.html">
+              <span class="nav-icon"><svg class="icon-svg" viewBox="0 0 24 24"><rect width="20" height="14" x="2" y="5" rx="2"></rect><line x1="2" x2="22" y1="10" y2="10"></line></svg></span>
+              <div class="nav-labels">
+                <span class="nav-title-en">RFID Scanner</span>
+                <span class="nav-title-ta">அட்டை ஸ்கேனர்</span>
+              </div>
+              <span class="primary-badge">PRIMARY</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="inventory.html">
+              <span class="nav-icon"><svg class="icon-svg" viewBox="0 0 24 24"><path d="m7.5 4.27 9 5.15"></path><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"></path></svg></span>
+              <div class="nav-labels">
+                <span class="nav-title-en">Items &amp; Inventory</span>
+                <span class="nav-title-ta">பொருட்கள் இருப்பு</span>
+              </div>
+            </a>
+          </li>
+          <li class="nav-item active">
+            <a href="distribution.html">
+              <span class="nav-icon"><svg class="icon-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="m16 10-4 4-2-2"></path></svg></span>
+              <div class="nav-labels">
+                <span class="nav-title-en">Distribution</span>
+                <span class="nav-title-ta">பங்கீடு வழங்கல்</span>
+              </div>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="transactions.html">
+              <span class="nav-icon"><svg class="icon-svg" viewBox="0 0 24 24"><line x1="12" x2="12" y1="2" y2="22"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg></span>
+              <div class="nav-labels">
+                <span class="nav-title-en">Transaction History</span>
+                <span class="nav-title-ta">பரிவர்த்தனைகள்</span>
+              </div>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="reports.html">
+              <span class="nav-icon"><svg class="icon-svg" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" x2="8" y1="13" y2="13"></line><line x1="16" x2="8" y1="17" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg></span>
+              <div class="nav-labels">
+                <span class="nav-title-en">Reports &amp; Export</span>
+                <span class="nav-title-ta">அறிக்கைகள்</span>
+              </div>
+            </a>
+          </li>
+        </ul>
+
+        <div class="sidebar-heading" style="margin-top: 16px;">System &amp; Hardware</div>
+        <ul class="nav-list">
+          <li class="nav-item">
+            <a href="hardware.html">
+              <span class="nav-icon"><svg class="icon-svg" viewBox="0 0 24 24"><rect width="18" height="12" x="3" y="6" rx="2"></rect><circle cx="8" cy="12" r="1"></circle><circle cx="16" cy="12" r="1"></circle></svg></span>
+              <div class="nav-labels">
+                <span class="nav-title-en">Hardware Connection</span>
+                <span class="nav-title-ta">வன்பொருள் இணைப்பு</span>
+              </div>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="settings.html">
+              <span class="nav-icon"><svg class="icon-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg></span>
+              <div class="nav-labels">
+                <span class="nav-title-en">Settings</span>
+                <span class="nav-title-ta">அமைப்புகள்</span>
+              </div>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- SIDEBAR FOOTER -->
+      <div class="sidebar-footer">
+        <div class="admin-profile-box">
+          <div class="admin-avatar">A</div>
+          <div class="admin-info">
+            <span class="admin-name">Administrator</span>
+            <span class="admin-role">PDS Taluk Officer</span>
+          </div>
+        </div>
+        <button id="btnLogout" class="btn-logout">
+          <svg class="icon-svg" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" x2="9" y1="12" y2="12"></line></svg>
+          <span>வெளியேறு (Logout)</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+
+      <!-- ACTIVE CITIZEN HEADER BANNER -->
+      <div class="card" style="border-left: 6px solid var(--tn-green-600); margin-bottom: 24px;">
+        <div class="card-body" style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;">
+          <div style="display: flex; align-items: center; gap: 18px;">
+            <img id="distribUserPhoto" src="assets/images/cm_vijay.jpg" alt="Citizen"
+                 style="width: 68px; height: 68px; border-radius: 50%; object-fit: cover; border: 2px solid var(--tn-green-700);" onerror="this.src='assets/images/cm_vijay.jpg'">
+            <div>
+              <div style="font-size: 0.72rem; font-weight: 700; color: var(--tn-green-700); text-transform: uppercase;">
+                Verified Smart Card Citizen
+              </div>
+              <h2 id="distribUserName" style="font-size: 1.35rem; font-weight: 800; color: var(--slate-900);">--</h2>
+              <div style="font-size: 0.82rem; color: var(--slate-500);">
+                Aadhaar: <span id="distribUserAadhaar">XXXX-XXXX-XXXX</span> | UID: <code id="distribUserRfid">••••••••</code>
+              </div>
+            </div>
+          </div>
+
+          <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+            <a href="dashboard.html" class="btn btn-sm btn-secondary">
+              <span>← Back to Dashboard</span>
+            </a>
+            <a href="scanner.html" class="btn btn-sm btn-secondary">
+              <svg class="icon-svg" viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg>
+              <span>Switch Citizen / Rescan</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- MONTHLY COMPLETION BANNER (Shown when all quotas are exhausted) -->
+      <div id="monthlyCompleteBanner" style="display:none; margin-bottom: 24px;"></div>
+
+      <div class="dashboard-grid">
+
+        <!-- LEFT COLUMN: SELECT COMMODITY & DISPENSING ACTIONS -->
+        <div>
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">
+                <span>1. Select Monthly Entitled Commodity</span>
+                <span class="card-title-ta">பொருளைத் தேர்ந்தெடுக்கவும்</span>
+              </div>
+            </div>
+            <div class="card-body">
+              <p style="font-size: 0.84rem; color: var(--slate-600); margin-bottom: 14px;">
+                Click on any eligible item below to dispense. Quotas are allocated per calendar month.
+              </p>
+              <div id="productSelectionList">
+                <p class="text-muted">Loading citizen monthly entitlements...</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- DISPENSING CONFIGURATION SECTION -->
+          <div id="dispenseControlsSection" class="card" style="display: none;">
+            <div class="card-header" style="background: var(--tn-green-50);">
+              <div class="card-title" style="color: var(--tn-green-900);">
+                <span>2. Dispense Target Configuration</span>
+              </div>
+              <span class="badge badge-success" id="dispenseItemName">Rice</span>
+            </div>
+
+            <div class="card-body">
+              <div class="form-group">
+                <label class="form-label" for="targetWeightInput">
+                  Target Weight to Dispense (<span id="dispenseItemUnit">KG</span>)
+                </label>
+                <div style="display: flex; gap: 12px; align-items: center;">
+                  <input type="number" id="targetWeightInput" class="form-control" step="0.05" min="0.1" value="1.00" style="font-size:1.4rem; font-weight:800; max-width:180px;">
+                  <span id="targetWeightMaxLabel" class="text-muted" style="font-size:0.8rem;">Max allowed: 10.0 KG</span>
+                </div>
+              </div>
+
+              <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-top: 20px;">
+                <button id="btnTareLoadCell" class="btn btn-secondary">
+                  <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 20v-6M6 20V10M18 20V4"></path></svg>
+                  <span>Step 1: Tare Load Cell (Zero Out)</span>
+                </button>
+
+                <button id="btnStartDispensing" class="btn btn-primary btn-lg">
+                  <svg class="icon-svg" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                  <span>Step 2: START DISPENSING</span>
+                </button>
+
+                <button id="btnEmergencyStop" class="btn btn-danger btn-lg" style="display: none;">
+                  <svg class="icon-svg" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2"></rect></svg>
+                  <span>EMERGENCY STOP</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT COLUMN: REAL-TIME LOAD CELL MONITOR & SERVO STATUS -->
+        <div>
+          <!-- HIGH-CONTRAST DIGITAL LOAD CELL READOUT -->
+          <div class="weight-display-card">
+            <div class="weight-header">
+              <div class="weight-title">HX711 LOAD CELL LIVE WEIGHT</div>
+              <div id="lcdStabilityStatus" class="stability-pill stable">STABLE</div>
+            </div>
+
+            <div class="weight-value-lcd">
+              <span id="lcdLiveWeightValue">0.00</span>
+              <span id="lcdLiveWeightUnit" class="weight-unit-lcd">KG</span>
+            </div>
+
+            <div style="font-size:0.75rem; color:#94a3b8; text-align:center;">
+              Precision Strain Gauge Bridge (GPIO 32 DT / GPIO 33 SCK)
+            </div>
+          </div>
+
+          <!-- SERVO DISPENSING GATE ACTUATOR STATUS -->
+          <div class="servo-gate-card" style="margin-top: 20px;">
+            <div id="servoIconWrapper" class="servo-icon-wrapper closed">
+              <svg class="icon-svg" style="width:40px; height:40px;" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2"></rect><path d="m9 12 2 2 4-4"></path></svg>
+            </div>
+            <div id="servoStateStatus" class="servo-status-text">GATE CLOSED</div>
+            <div id="servoAngleLabel" class="servo-angle-text">Servo Position: 0° (Locked)</div>
+            <div style="font-size:0.75rem; color:var(--slate-400); margin-top:8px;">
+              Actuator Pin: GPIO 13 &bull; Auto-locks when target weight achieved
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <!-- MODAL: PRINTABLE OFFICIAL RATION RECEIPT -->
+  <div class="modal-overlay" id="modalReceipt">
+    <div class="modal-content" style="max-width: 500px;">
+      <div class="modal-header">
+        <div class="modal-title">Official Ration Receipt</div>
+        <button class="modal-close-btn" onclick="window.NP_COMMON.closeModal('modalReceipt')">&times;</button>
+      </div>
+
+      <div class="modal-body" id="receiptPrintArea">
+        <div style="text-align: center; border-bottom: 2px dashed var(--slate-300); padding-bottom: 14px; margin-bottom: 16px;">
+          <img src="assets/images/Tamil_nadu_logo.png" alt="TN Logo" style="height: 52px; margin-bottom: 6px;">
+          <h3 style="font-size: 1.15rem; font-weight: 800; color: var(--slate-900); margin: 0;">தமிழ்நாடு அரசு – பொது விநியோகத் திட்டம்</h3>
+          <div style="font-size: 0.82rem; font-weight: 700; color: var(--tn-green-800);">GOVERNMENT OF TAMIL NADU &bull; PDS SMART RECEIPT</div>
+          <div style="font-size: 0.72rem; color: var(--slate-500);">Shop Code: TN-PDS-CH-042 &bull; Fair Price Shop No. 14</div>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 8px; font-size: 0.88rem;">
+          <div style="display: flex; justify-content: space-between;">
+            <span class="text-muted">Citizen Name:</span>
+            <strong id="rcptUserName">--</strong>
+          </div>
+          <div style="display: flex; justify-content: space-between;">
+            <span class="text-muted">Aadhaar:</span>
+            <span id="rcptAadhaar">XXXX-XXXX-XXXX</span>
+          </div>
+          <div style="display: flex; justify-content: space-between;">
+            <span class="text-muted">Smart Card UID:</span>
+            <code id="rcptRfid">••••••••</code>
+          </div>
+          <div style="display: flex; justify-content: space-between;">
+            <span class="text-muted">Distributed Commodity:</span>
+            <strong id="rcptItem">--</strong>
+          </div>
+          <div style="display: flex; justify-content: space-between;">
+            <span class="text-muted">Measured Net Weight:</span>
+            <strong id="rcptQty" class="text-success" style="font-size:1.1rem;">--</strong>
+          </div>
+          <div style="display: flex; justify-content: space-between;">
+            <span class="text-muted">Verification Status:</span>
+            <span class="badge badge-success">RFID + PIN AUTHENTICATED</span>
+          </div>
+          <div style="display: flex; justify-content: space-between;">
+            <span class="text-muted">Date &amp; Time:</span>
+            <span id="rcptDate" style="font-size:0.8rem;">--</span>
+          </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 20px; padding-top: 12px; border-top: 1px dashed var(--slate-300); font-size: 0.75rem; color: var(--slate-500);">
+          This is a computer-verified electronic receipt generated from Cloud Firestore.<br>
+          நன்றி! வணக்கம்!
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" onclick="window.NP_COMMON.closeModal('modalReceipt')">Close</button>
+        <button type="button" class="btn btn-primary" onclick="window.print()">
+          <svg class="icon-svg" viewBox="0 0 24 24"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect width="12" height="8" x="6" y="14"></rect></svg>
+          <span>Print Receipt</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-storage-compat.js"></script>
+
+  <!-- App Scripts -->
+  <script src="assets/js/firebase-config.js"></script>
+  <script src="assets/js/common.js"></script>
+  <script src="assets/js/hardware.js"></script>
+  <script src="assets/js/distribution.js"></script>
+</body>
+</html>

@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="ta, en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Card Scanning Station | NAMMAPANGU – நம்ம பங்கு</title>
+  <link rel="icon" type="image/png" href="assets/images/Tamil_nadu_logo.png">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/responsive.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Tamil:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background-color: var(--slate-50);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    .kiosk-top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .kiosk-btn-group {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .atm-indicator-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      padding: 6px 14px;
+      border-radius: 9999px;
+      background: #e2e8f0;
+      color: var(--slate-700);
+    }
+    .atm-indicator-pill.active {
+      background: #dcfce7;
+      color: #15803d;
+      border: 1px solid #86efac;
+    }
+    .choice-card {
+      background: var(--white);
+      border-radius: 14px;
+      padding: 24px;
+      text-align: center;
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+    .choice-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-lg);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- PROTOTYPE DISCLAIMER BANNER -->
+  <div class="prototype-banner">
+    <span class="prototype-badge">Prototype Demonstration</span>
+    <span>Inspired by Tamil Nadu Public Distribution System (PDS) | Academic / Research Model – Not an Official Government Portal</span>
+  </div>
+
+  <!-- GOVERNMENT BRANDING HEADER -->
+  <header class="app-header">
+    <div class="header-left">
+      <img src="assets/images/Tamil_nadu_logo.png" alt="TN Logo" class="tn-emblem">
+      <div class="brand-titles">
+        <div class="gov-subtext">
+          <span>தமிழ்நாடு அரசு</span> • <span>SMART RATION DISTRIBUTION KIOSK</span>
+        </div>
+        <div class="brand-main-title">
+          <span>NAMMAPANGU</span>
+          <span class="brand-tamil">நம்ம பங்கு</span>
+        </div>
+        <div class="brand-tagline">Automated RFID Smart Card &amp; Load Cell Station</div>
+      </div>
+    </div>
+
+    <div class="header-right">
+      <div class="cm-portrait-container">
+        <img src="assets/images/CM Vijay.jpg" alt="Hon'ble Chief Minister" class="cm-photo">
+        <div class="cm-details">
+          <span class="cm-role">மாண்புமிகு முதலமைச்சர்</span>
+          <span class="cm-name">Hon'ble Chief Minister</span>
+          <span class="cm-tag">Public Service Automation</span>
+        </div>
+      </div>
+
+      <div class="header-meta">
+        <div id="liveClock" class="live-clock">--:--:--</div>
+        <div class="hardware-quick-badge" id="kioskHwHeaderBadge">
+          <span class="pulse-dot"></span>
+          <span>ESP32 Ready</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN SCANNER CONTAINER -->
+  <main style="max-width: 1100px; margin: 28px auto; padding: 0 20px; flex: 1; width: 100%;">
+
+    <!-- KIOSK NAVIGATION & STATUS BAR -->
+    <div class="kiosk-top-bar">
+      <div style="display:flex; align-items:center; gap:10px;">
+        <a href="index.html" class="btn btn-secondary btn-sm" style="display:inline-flex; align-items:center; gap:6px;">
+          <svg class="icon-svg" viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+          <span>← முகப்பு (Home)</span>
+        </a>
+        <div id="scannerAtmPill" class="atm-indicator-pill">
+          <span class="pulse-dot"></span>
+          <span id="scannerAtmPillText">STANDBY – PRESS START</span>
+        </div>
+      </div>
+
+      <div class="kiosk-btn-group">
+        <button id="btnConnectEspScanner" class="btn btn-saffron btn-sm">
+          <svg class="icon-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+          <span>Connect ESP32</span>
+        </button>
+        <button id="btnSimulateScanModal" class="btn btn-secondary btn-sm">
+          <svg class="icon-svg" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+          <span>Simulate Card Tap</span>
+        </button>
+        <a href="login.html" class="btn btn-secondary btn-sm">
+          <span>அதிகாரி உள்நுழைவு (Officer Login)</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- 1. SCANNER HERO PANEL (ATM CONTINUOUS SCANNING) -->
+    <div id="scannerHeroPanel" class="card scanner-container" style="padding: 40px 24px; margin-bottom: 24px;">
+      <!-- Radar Waves -->
+      <div class="rfid-animation-wrapper" id="scannerRadarWrapper">
+        <div class="ripple-circle"></div>
+        <div class="ripple-circle"></div>
+        <div class="ripple-circle"></div>
+        <div class="rfid-card-visual">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <div class="rfid-chip"></div>
+            <div class="rfid-tn-brand">TAMIL NADU PDS</div>
+          </div>
+          <div style="font-size:0.75rem; font-weight:700;">SMART RATION CARD</div>
+          <div class="rfid-uid-preview" id="lastScannedUidDisplay">READY TO SCAN</div>
+        </div>
+      </div>
+
+      <div style="margin-bottom: 10px;">
+        <span id="scannerStateBadge" class="badge badge-info" style="font-size: 0.88rem; padding: 6px 16px;">
+          READY TO SCAN
+        </span>
+      </div>
+
+      <h2 id="scannerStatusTitle" class="scanner-status-title" style="font-size: 1.8rem; font-weight: 800; color: var(--slate-900); margin-bottom: 8px;">
+        READY TO SCAN
+      </h2>
+      <div id="scannerStatusSub" class="scanner-status-sub" style="font-size: 1rem; color: var(--slate-600); max-width: 580px; margin: 0 auto 24px auto; line-height: 1.5;">
+        Click <strong>START SCANNING</strong> to activate the RFID Smart Card reader. Once started, the scanner stays active continuously like an ATM machine.
+      </div>
+
+      <!-- Action Buttons for Initial State vs Active State -->
+      <div id="scannerStandbyActions" style="display: flex; justify-content: center; gap: 14px; flex-wrap: wrap;">
+        <button id="btnStartScanning" class="btn btn-primary btn-lg" style="padding: 14px 36px; font-size: 1.1rem; font-weight: 800; box-shadow: 0 4px 14px rgba(6,78,59,0.35);">
+          <svg class="icon-svg" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+          <span>START SCANNING (ஸ்கேன் தொடங்க)</span>
+        </button>
+      </div>
+
+      <div id="scannerActiveActions" style="display: none; justify-content: center; gap: 14px; flex-wrap: wrap;">
+        <div class="badge badge-success" style="font-size: 0.95rem; padding: 10px 20px;">
+          <span class="pulse-dot"></span>
+          <span>ATM SCANNER ACTIVE &bull; WAITING FOR CARD...</span>
+        </div>
+        <button id="btnPauseScanning" class="btn btn-secondary btn-sm" style="align-self: center;">
+          Pause Scanner
+        </button>
+      </div>
+    </div>
+
+    <!-- 2. UNREGISTERED CARD PANEL (Shown if UID not in Firestore) -->
+    <div id="unregisteredCardPanel" class="card" style="display: none; border-left: 6px solid #e11d48; margin-bottom: 24px;">
+      <div class="card-header" style="background: #fff1f2; display: flex; justify-content: space-between; align-items: center;">
+        <div class="card-title" style="color: #be123c; font-weight: 800; font-size: 1.15rem;">
+          <span>USER NOT REGISTERED &bull; அட்டை பதிவு செய்யப்படவில்லை</span>
+        </div>
+        <span class="badge badge-danger">Unregistered Card</span>
+      </div>
+      <div class="card-body" style="padding: 28px;">
+        <div style="display: flex; gap: 20px; align-items: center; flex-wrap: wrap; margin-bottom: 20px;">
+          <div style="width: 60px; height: 60px; border-radius: 50%; background: #fee2e2; color: #dc2626; display: flex; align-items: center; justify-content: center;">
+            <svg class="icon-svg" style="width: 32px; height: 32px;" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+          </div>
+          <div>
+            <div style="font-size: 1rem; color: var(--slate-700); margin-bottom: 4px;">
+              The scanned RFID Smart Card is not registered in the Tamil Nadu Public Distribution System database.
+            </div>
+            <div style="font-size: 0.9rem; color: var(--slate-900);">
+              Captured Hardware UID: <code id="unregisteredUidDisplay" style="font-size: 1.1rem; font-weight: 800; background: #f1f5f9; padding: 3px 10px; border-radius: 6px; color: #0f172a;">••••••••</code>
+            </div>
+          </div>
+        </div>
+
+        <div style="display: flex; gap: 14px; flex-wrap: wrap;">
+          <button id="btnOpenRegisterModal" class="btn btn-primary btn-md" style="font-weight: 700;">
+            <svg class="icon-svg" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+            <span>REGISTER NEW USER (புதிய பயனாளர் பதிவு)</span>
+          </button>
+          <button id="btnDismissUnregistered" class="btn btn-secondary btn-md">
+            <span>Scan Another Card / அடுத்த அட்டை</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. REGISTERED CITIZEN PROFILE & PIN / ACTION SELECTION -->
+    <div id="registeredUserPanel" class="card" style="display: none; border-left: 6px solid var(--tn-green-600); margin-bottom: 24px;">
+      <!-- Profile Header -->
+      <div class="card-header" style="background: var(--tn-green-50); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+        <div class="card-title" style="color: var(--tn-green-900); font-weight: 800;">
+          <span>Citizen Identified &bull; பயனாளர் அங்கீகரிக்கப்பட்டது</span>
+        </div>
+        <div style="display: flex; gap: 8px;">
+          <span class="badge badge-success">Active Card</span>
+          <button id="btnSignOutCloseTop" class="btn btn-sm btn-secondary" style="color: #dc2626; border-color: #fca5a5;">
+            SIGN OUT / CLOSE (வெளியேறு)
+          </button>
+        </div>
+      </div>
+
+      <div class="card-body" style="padding: 26px;">
+        <!-- Citizen Summary -->
+        <div style="display: flex; gap: 24px; align-items: center; flex-wrap: wrap; margin-bottom: 24px;">
+          <img id="citizenAvatarImg" src="assets/images/cm_vijay.jpg" alt="Citizen" style="width: 90px; height: 90px; border-radius: 12px; object-fit: cover; border: 3px solid var(--tn-green-600); box-shadow: var(--shadow-sm);">
+          <div style="flex: 1; min-width: 250px;">
+            <h3 id="citizenFullName" style="font-size: 1.4rem; font-weight: 800; color: var(--slate-900); margin-bottom: 4px;">--</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 8px; font-size: 0.85rem; color: var(--slate-600); margin-bottom: 10px;">
+              <div>Aadhaar: <strong id="citizenAadhaarDisplay">XXXX-XXXX-XXXX</strong></div>
+              <div>Mobile: <strong id="citizenMobileDisplay">+91 --</strong></div>
+              <div>Permanent Smart Card UID: <code id="citizenUidDisplay" style="font-weight: 700; color: #1d4ed8;">••••••••</code></div>
+            </div>
+            <div>
+              <div style="font-size: 0.75rem; font-weight: 700; color: var(--slate-500); text-transform: uppercase; margin-bottom: 4px;">Monthly Entitlements:</div>
+              <div id="citizenQuotaBadges" style="display: flex; flex-wrap: wrap; gap: 6px;"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- STAGE 3A: PIN PROMPT -->
+        <div id="pinEntrySection" style="background: var(--slate-50); border: 1px solid var(--slate-200); border-radius: 14px; padding: 24px; text-align: center; margin-top: 12px;">
+          <h4 style="font-size: 1.15rem; font-weight: 800; color: var(--slate-900); margin-bottom: 6px;">
+            ENTER YOUR 6-DIGIT PIN TO PROCEED
+          </h4>
+          <p id="pinStatusMsg" style="font-size: 0.85rem; color: var(--slate-600); margin-bottom: 16px;">
+            Please enter your confidential 6-digit security PIN via the keypad or keyboard.
+          </p>
+
+          <!-- 6 Masked PIN Indicator Boxes -->
+          <div class="pin-display-boxes" style="margin-bottom: 18px;">
+            <div class="pin-box"></div>
+            <div class="pin-box"></div>
+            <div class="pin-box"></div>
+            <div class="pin-box"></div>
+            <div class="pin-box"></div>
+            <div class="pin-box"></div>
+          </div>
+
+          <!-- Numeric Keypad -->
+          <div class="pin-keypad" style="max-width: 280px; margin: 0 auto;">
+            <button class="pin-key" data-key="1">1</button>
+            <button class="pin-key" data-key="2">2</button>
+            <button class="pin-key" data-key="3">3</button>
+            <button class="pin-key" data-key="4">4</button>
+            <button class="pin-key" data-key="5">5</button>
+            <button class="pin-key" data-key="6">6</button>
+            <button class="pin-key" data-key="7">7</button>
+            <button class="pin-key" data-key="8">8</button>
+            <button class="pin-key" data-key="9">9</button>
+            <button class="pin-key action-key" data-key="clear">Clear</button>
+            <button class="pin-key" data-key="0">0</button>
+            <button class="pin-key action-key" data-key="backspace">&#9003;</button>
+          </div>
+        </div>
+
+        <!-- STAGE 3B: TWO OPTIONS ONLY (GET RATION vs SIGN IN) -->
+        <div id="actionChoiceSection" style="display: none; margin-top: 24px;">
+          <div style="text-align: center; margin-bottom: 20px;">
+            <span class="badge badge-success" style="font-size: 0.88rem; padding: 6px 16px;">
+              PIN VERIFIED SUCCESSFULLY &bull; பின் சரிபார்க்கப்பட்டது
+            </span>
+            <h3 style="font-size: 1.35rem; font-weight: 800; color: var(--slate-900); margin-top: 8px;">
+              Select Desired Action (செயலைத் தேர்ந்தெடுக்கவும்)
+            </h3>
+          </div>
+
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
+            <!-- OPTION 1: GET RATION -->
+            <div id="cardChoiceGetRation" class="choice-card" style="border: 2px solid var(--tn-green-600);">
+              <div style="width: 52px; height: 52px; border-radius: 50%; background: var(--tn-green-50); color: var(--tn-green-700); display: flex; align-items: center; justify-content: center; margin: 0 auto 14px auto;">
+                <svg class="icon-svg" style="width: 28px; height: 28px;" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+              </div>
+              <h4 style="font-size: 1.25rem; font-weight: 800; color: var(--tn-green-900); margin-bottom: 8px;">
+                1. GET RATION (பொருட்கள் பெறுக)
+              </h4>
+              <p style="font-size: 0.85rem; color: var(--slate-600); line-height: 1.5; margin-bottom: 20px;">
+                Proceed directly to the automated electronic load cell dispenser to receive today's allocated ration commodities.
+              </p>
+              <button id="btnChoiceGetRation" class="btn btn-primary" style="width: 100%; padding: 12px; font-weight: 800;">
+                GET RATION NOW &rarr;
+              </button>
+            </div>
+
+            <!-- OPTION 2: SIGN IN -->
+            <div id="cardChoiceSignIn" class="choice-card" style="border: 2px solid var(--tn-saffron-600);">
+              <div style="width: 52px; height: 52px; border-radius: 50%; background: var(--tn-saffron-50); color: var(--tn-saffron-800); display: flex; align-items: center; justify-content: center; margin: 0 auto 14px auto;">
+                <svg class="icon-svg" style="width: 28px; height: 28px;" viewBox="0 0 24 24"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path><polyline points="10 17 15 12 10 7"></polyline><line x1="15" x2="3" y1="12" y2="12"></line></svg>
+              </div>
+              <h4 style="font-size: 1.25rem; font-weight: 800; color: var(--tn-saffron-800); margin-bottom: 8px;">
+                2. SIGN IN (கணக்கில் நுழைக)
+              </h4>
+              <p style="font-size: 0.85rem; color: var(--slate-600); line-height: 1.5; margin-bottom: 20px;">
+                Open citizen portal to view past family transaction history, download ration slips, and review remaining quota (5-min session).
+              </p>
+              <button id="btnChoiceSignIn" class="btn btn-saffron" style="width: 100%; padding: 12px; font-weight: 800;">
+                OPEN CITIZEN DASHBOARD &rarr;
+              </button>
+            </div>
+          </div>
+
+          <!-- Bottom Close Session -->
+          <div style="display: flex; justify-content: center; margin-top: 24px; padding-top: 16px; border-top: 1px solid var(--slate-200);">
+            <button id="btnSignOutCloseBottom" class="btn btn-secondary btn-md" style="color: #dc2626;">
+              <svg class="icon-svg" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" x2="9" y1="12" y2="12"></line></svg>
+              <span>SIGN OUT / CLOSE (வெளியேறு / முடி)</span>
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- 4. AUTOMATED DISPENSER STATION PANEL (LOAD CELL & SERVO) -->
+    <div id="dispenserStationPanel" class="card" style="display: none; border: 2px solid var(--slate-900); margin-bottom: 24px;">
+      <div class="card-header" style="background: var(--slate-900); color: var(--white); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+        <div class="card-title" style="color: #34d399; font-weight: 800;">
+          <span>AUTOMATED LOAD CELL DISPENSING KIOSK</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <div>Servo Gate: <strong id="kioskServoStatus" style="color: #f59e0b;">CLOSED</strong></div>
+          <button id="btnAbortDispense" class="btn btn-sm btn-secondary" style="background: #334155; color: #f87171; border-color: #475569;">
+            Cancel / Close Session
+          </button>
+        </div>
+      </div>
+
+      <div class="card-body" style="padding: 30px;">
+        <!-- No Items Warning Box (shown if Today's items empty) -->
+        <div id="noTodayItemsAlert" style="display: none; background: #fffbeb; border: 2px solid #f59e0b; border-radius: 12px; padding: 24px; text-align: center; margin-bottom: 20px;">
+          <div style="font-size: 1.35rem; font-weight: 800; color: #b45309; margin-bottom: 6px;">
+            NO ITEMS AVAILABLE TODAY. Please contact the system administrator.
+          </div>
+          <div style="font-size: 1rem; color: #92400e; font-family: var(--font-tamil); font-weight: 700; margin-bottom: 18px;">
+            இன்று விநியோகிக்க பொருட்கள் எதுவும் ஒதுக்கப்படவில்லை. கணினி நிர்வாகியைத் தொடர்பு கொள்ளவும்.
+          </div>
+          <button id="btnNoItemsClose" class="btn btn-secondary btn-md">
+            SIGN OUT / CLOSE (வெளியேறு)
+          </button>
+        </div>
+
+        <!-- Active Dispenser Flow (shown when items exist) -->
+        <div id="activeDispenserFlow">
+          <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; margin-bottom: 14px;">
+            <h2 id="kioskCurrentItemTitle" style="font-size: 1.45rem; font-weight: 800; color: var(--slate-900); margin: 0;">
+              Item 1 of 4: Rice (அரிசி)
+            </h2>
+            <div id="kioskQueueCounter" class="badge badge-info" style="font-size: 0.85rem;">
+              Queue: 1 / 4
+            </div>
+          </div>
+
+          <!-- Digital LCD Readout -->
+          <div class="weight-display-card" style="margin-bottom: 24px;">
+            <div class="weight-header">
+              <div class="weight-title">Target: <span id="kioskTargetWeight">1.00 KG</span></div>
+              <div id="kioskStabilityBadge" class="stability-pill stable">HX711 ACTIVE</div>
+            </div>
+            <div class="weight-value-lcd">
+              <span id="kioskLiveWeight">0.00</span>
+              <span id="kioskWeightUnit" class="weight-unit-lcd">KG</span>
+            </div>
+          </div>
+
+          <!-- Dispense Action Buttons -->
+          <div style="display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;">
+            <button id="btnDispenseCurrentItem" class="btn btn-primary btn-lg" style="padding: 12px 32px; font-weight: 800;">
+              <svg class="icon-svg" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+              <span>Dispense This Commodity</span>
+            </button>
+            <button id="btnNextDispenseItem" class="btn btn-saffron btn-lg" style="display: none; padding: 12px 32px; font-weight: 800;">
+              <span>Item Dispensed! Proceed to Next Item &rarr;</span>
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- 5. KIOSK COMPLETION CARD -->
+    <div id="dispenserCompletedPanel" class="card" style="display: none; text-align: center; padding: 36px 24px; background: var(--tn-green-50); border: 2px solid var(--tn-green-600); border-radius: 16px; margin-bottom: 24px;">
+      <div style="width: 64px; height: 64px; border-radius: 50%; background: var(--tn-green-600); color: var(--white); display: flex; align-items: center; justify-content: center; margin: 0 auto 16px auto;">
+        <svg class="icon-svg" style="width: 36px; height: 36px;" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>
+      </div>
+
+      <h2 style="font-size: 1.8rem; font-weight: 800; color: var(--tn-green-900); margin-bottom: 8px;">
+        THANK YOU FOR COLLECTING YOUR RATION!
+      </h2>
+      <p style="font-family: var(--font-tamil); font-size: 1.15rem; color: var(--tn-green-800); font-weight: 700; margin-bottom: 8px;">
+        உங்கள் பொருட்கள் வெற்றிகரமாக வழங்கப்பட்டுவிட்டன. நன்றி!
+      </p>
+      <p style="font-size: 0.9rem; color: var(--slate-600); margin-bottom: 20px;">
+        All commodities successfully measured, verified, and recorded in Cloud Firestore ledger.
+      </p>
+
+      <!-- Dispensed Items Summary -->
+      <div id="dispensedReceiptSummary" style="max-width: 500px; margin: 0 auto 24px auto; background: var(--white); border: 1px solid var(--tn-green-200); border-radius: 12px; padding: 16px; text-align: left;">
+      </div>
+
+      <div style="display: flex; justify-content: center; gap: 14px; flex-wrap: wrap;">
+        <button id="btnSignOutCloseCompleted" class="btn btn-primary btn-lg" style="padding: 12px 32px; font-weight: 800;">
+          <span>SIGN OUT / CLOSE (முடிவு செய்து வெளியேறு)</span>
+        </button>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- MODAL: REGISTER NEW CITIZEN (HW UID PRE-FILLED & LOCKED) -->
+  <div class="modal-overlay" id="modalRegisterUser">
+    <div class="modal-content" style="max-width: 540px;">
+      <div class="modal-header">
+        <div class="modal-title">
+          <span>Register Citizen Smart Ration Card</span>
+          <div style="font-size:0.75rem; font-family:var(--font-tamil); color:var(--tn-green-700); font-weight:normal;">புதிய குடும்ப அட்டைப் பதிவு</div>
+        </div>
+        <button class="modal-close-btn" onclick="window.NP_COMMON.closeModal('modalRegisterUser')">&times;</button>
+      </div>
+
+      <form id="kioskNewUserForm">
+        <div class="modal-body">
+          <!-- Hardware UID Locked Banner -->
+          <div style="background: #eff6ff; border: 2px solid #93c5fd; border-radius: 10px; padding: 14px; text-align: center; margin-bottom: 18px;">
+            <div style="font-size: 0.75rem; font-weight: 800; color: #1d4ed8; text-transform: uppercase; margin-bottom: 4px;">
+              PERMANENT HARDWARE RFID UID (AUTO-CAPTURED)
+            </div>
+            <input type="text" id="kioskRegUid" class="form-control" style="max-width: 200px; margin: 0 auto; font-family: monospace; font-size: 1.1rem; font-weight: 800; text-align: center; background: #ffffff; color: #1e3a8a;" readonly required>
+            <div style="font-size: 0.72rem; color: #3b82f6; margin-top: 4px;">
+              This hardware UID is permanently locked and linked to the reader.
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="kioskRegName">
+              Citizen Full Name <span class="tamil">(குடும்பத் தலைவர் பெயர்)</span>
+            </label>
+            <input type="text" id="kioskRegName" class="form-control" placeholder="e.g. Subramanian K" required>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="kioskRegAadhaar">
+                12-Digit Aadhaar Identifier <span class="tamil">(ஆதார் எண்)</span>
+              </label>
+              <input type="text" id="kioskRegAadhaar" class="form-control" placeholder="123456789012" maxlength="12" pattern="\d{12}" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="kioskRegMobile">
+                Mobile Number <span class="tamil">(அலைபேசி எண்)</span>
+              </label>
+              <input type="tel" id="kioskRegMobile" class="form-control" placeholder="9876543210" maxlength="10" pattern="\d{10}" required>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="kioskRegPin">
+                6-Digit Distribution PIN <span class="tamil">(6 இலக்க ரகசிய பின்)</span>
+              </label>
+              <input type="password" id="kioskRegPin" class="form-control" placeholder="••••••" maxlength="6" pattern="\d{6}" required autocomplete="new-password">
+              <span style="font-size:0.7rem; color:var(--slate-500);">Cryptographically salted before storing.</span>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="kioskRegPhoto">
+                Citizen Photo <span class="tamil">(புகைப்படம்)</span>
+              </label>
+              <input type="file" id="kioskRegPhoto" class="form-control" accept="image/*">
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" onclick="window.NP_COMMON.closeModal('modalRegisterUser')">Cancel</button>
+          <button type="submit" id="btnSubmitKioskUser" class="btn btn-primary">Save &amp; Enroll Smart Card</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+
+  <!-- App Scripts -->
+  <script src="assets/js/firebase-config.js"></script>
+  <script src="assets/js/common.js"></script>
+  <script src="assets/js/hardware.js"></script>
+  <script src="assets/js/scanner.js"></script>
+</body>
+</html>

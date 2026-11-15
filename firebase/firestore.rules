@@ -1,0 +1,79 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Helper Functions
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    function isAdmin() {
+      return isAuthenticated() && (
+        request.auth.token.email == 'admin@tn.gov.in' ||
+        request.auth.token.email.matches('.*@(tn\\.gov\\.in|nammapangu\\.tn\\.gov\\.in)') ||
+        exists(/databases/$(database)/documents/admins/$(request.auth.uid))
+      );
+    }
+
+    // Admins Collection
+    match /admins/{adminId} {
+      allow read, write: if isAuthenticated();
+    }
+
+    // Citizen Smart Card Holders Collection
+    match /users/{userId} {
+      // Allow read for authenticated staff, kiosk verification, or citizen lookup
+      allow read: if true;
+      allow create: if true;
+      allow update: if true;
+      allow delete: if isAdmin();
+    }
+
+    // Available PDS Commodity Catalog
+    match /products/{productId} {
+      // Products are publicly readable for public kiosks and dashboard displays
+      allow read: if true;
+      allow write: if true;
+    }
+
+    // Monthly Entitlement Quota Tracking
+    match /distribution_cycles/{cycleId} {
+      allow read: if true;
+      allow write: if true;
+    }
+
+    // Distribution Transactions (Immutable Ledger)
+    match /transactions/{transactionId} {
+      allow read: if true;
+      allow create: if true;
+      allow update, delete: if isAdmin();
+    }
+
+    // Godown Stock Replenishment Registers
+    match /stock_movements/{movementId} {
+      allow read: if true;
+      allow create: if true;
+      allow update, delete: if isAdmin();
+    }
+
+    // System Settings & Shop Profiles
+    match /system_settings/{settingId} {
+      allow read: if true;
+      allow write: if true;
+    }
+
+    // Security Incident Logs & Card Lockouts
+    match /audit_logs/{auditId} {
+      allow read: if true;
+      allow create: if true;
+      allow update, delete: if false;
+    }
+
+    // Hardware Telemetry Logs
+    match /hardware_logs/{logId} {
+      allow read: if true;
+      allow create: if true;
+      allow update, delete: if false;
+    }
+  }
+}

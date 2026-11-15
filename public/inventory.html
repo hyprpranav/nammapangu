@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="ta, en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Items &amp; Inventory | NAMMAPANGU – நம்ம பங்கு</title>
+  <link rel="icon" type="image/png" href="assets/images/Tamil_nadu_logo.png">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/dashboard.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/responsive.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Tamil:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    .today-section-card {
+      background: #f0fdf4;
+      border: 2px solid #86efac;
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 32px;
+    }
+    .today-item-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      background: #dcfce7;
+      color: #166534;
+      border: 1px solid #bbf7d0;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- PROTOTYPE DISCLAIMER -->
+  <div class="prototype-banner">
+    <span class="prototype-badge">Prototype Demonstration</span>
+    <span>Inspired by Tamil Nadu Public Distribution System (PDS) | Academic / Research Model – Not an Official Government Portal</span>
+  </div>
+
+  <!-- GOVERNMENT BRANDING HEADER -->
+  <header class="app-header">
+    <div class="header-left">
+      <button class="mobile-nav-toggle" id="mobileNavToggle" aria-label="Toggle navigation">
+        <svg class="icon-svg" viewBox="0 0 24 24"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+      </button>
+      <img src="assets/images/Tamil_nadu_logo.png" alt="TN Logo" class="tn-emblem">
+      <div class="brand-titles">
+        <div class="gov-subtext">
+          <span>தமிழ்நாடு அரசு</span> • <span>PUBLIC DISTRIBUTION SYSTEM</span>
+        </div>
+        <div class="brand-main-title">
+          <span>NAMMAPANGU</span>
+          <span class="brand-tamil">நம்ம பங்கு</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="header-right">
+      <div class="cm-portrait-container">
+        <img src="assets/images/CM Vijay.jpg" alt="Hon'ble Chief Minister" class="cm-photo">
+        <div class="cm-details">
+          <span class="cm-role">மாண்புமிகு முதலமைச்சர்</span>
+          <span class="cm-name">Hon'ble Chief Minister</span>
+          <span class="cm-tag">Public Service Automation</span>
+        </div>
+      </div>
+
+      <div class="header-meta">
+        <div id="liveClock" class="live-clock">--:--:--</div>
+        <div class="hardware-quick-badge">
+          <span class="pulse-dot"></span>
+          <span>ESP32 Ready</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- APP CONTAINER -->
+  <div class="app-container">
+
+    <!-- SIMPLIFIED 5-TAB ADMIN SIDEBAR -->
+    <aside class="app-sidebar">
+      <div class="sidebar-menu-wrapper">
+        <div class="sidebar-heading">Admin Operations</div>
+        <ul class="nav-list">
+          <li class="nav-item">
+            <a href="dashboard.html">
+              <span class="nav-icon"><svg class="icon-svg" viewBox="0 0 24 24"><rect width="7" height="9" x="3" y="3" rx="1"></rect><rect width="7" height="5" x="14" y="3" rx="1"></rect><rect width="7" height="9" x="14" y="12" rx="1"></rect><rect width="7" height="5" x="3" y="16" rx="1"></rect></svg></span>
+              <div class="nav-labels">
+                <span class="nav-title-en">Dashboard</span>
+                <span class="nav-title-ta">கண்ணோட்டம்</span>
+              </div>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="users.html">
+              <span class="nav-icon"><svg class="icon-svg" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg></span>
+              <div class="nav-labels">
+                <span class="nav-title-en">Citizens</span>
+                <span class="nav-title-ta">பயனாளர்கள்</span>
+              </div>
+            </a>
+          </li>
+          <li class="nav-item active">
+            <a href="inventory.html">
+              <span class="nav-icon"><svg class="icon-svg" viewBox="0 0 24 24"><path d="m7.5 4.27 9 5.15"></path><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"></path><path d="m3.3 7 8.7 5 8.7-5"></path><path d="M12 22V12"></path></svg></span>
+              <div class="nav-labels">
+                <span class="nav-title-en">Inventory &amp; Today's Items</span>
+                <span class="nav-title-ta">பொருட்கள் இருப்பு</span>
+              </div>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="transactions.html">
+              <span class="nav-icon"><svg class="icon-svg" viewBox="0 0 24 24"><line x1="12" x2="12" y1="2" y2="22"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg></span>
+              <div class="nav-labels">
+                <span class="nav-title-en">Transactions</span>
+                <span class="nav-title-ta">பரிவர்த்தனைகள்</span>
+              </div>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="hardware.html">
+              <span class="nav-icon"><svg class="icon-svg" viewBox="0 0 24 24"><rect width="18" height="12" x="3" y="6" rx="2"></rect><circle cx="8" cy="12" r="1"></circle><circle cx="16" cy="12" r="1"></circle></svg></span>
+              <div class="nav-labels">
+                <span class="nav-title-en">Hardware &amp; ESP32</span>
+                <span class="nav-title-ta">வன்பொருள் இணைப்பு</span>
+              </div>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- SIDEBAR FOOTER -->
+      <div class="sidebar-footer">
+        <div class="admin-profile-box">
+          <div class="admin-avatar">A</div>
+          <div class="admin-info">
+            <span class="admin-name">Administrator</span>
+            <span class="admin-role">PDS Taluk Officer</span>
+          </div>
+        </div>
+        <button id="btnLogout" class="btn-logout">
+          <svg class="icon-svg" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" x2="9" y1="12" y2="12"></line></svg>
+          <span>வெளியேறு (Logout)</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+      <div class="page-header">
+        <div class="page-title-block">
+          <h1 class="page-title">
+            <span>Commodity Inventory &amp; Today's Distribution</span>
+            <span class="page-title-ta">பொருட்கள் இருப்பு மற்றும் இன்றைய பங்கீடு</span>
+          </h1>
+          <div class="page-desc">
+            Manage warehouse commodity stocks, replenish godown inward deliveries, and configure today's active distribution items.
+          </div>
+        </div>
+        <div class="d-flex gap-2">
+          <a href="scanner.html" target="_blank" class="btn btn-secondary" title="Open Public Scanning Station in new tab">
+            <svg class="icon-svg" viewBox="0 0 24 24"><rect width="20" height="14" x="2" y="5" rx="2"></rect><line x1="2" x2="22" y1="10" y2="10"></line></svg>
+            <span>Launch Public Scanner &rarr;</span>
+          </a>
+          <button class="btn btn-primary" onclick="window.NP_COMMON.openModal('modalNewProduct')">
+            <svg class="icon-svg" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+            <span>+ ADD NEW ITEM (புதிய பொருள்)</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- 1. TOP SECTION: TODAY'S DISTRIBUTION ITEMS -->
+      <div class="today-section-card">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 16px;">
+          <div>
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <h2 style="font-size: 1.35rem; font-weight: 800; color: #166534; margin: 0;">
+                TODAY'S DISTRIBUTION ITEMS (இன்றைய விநியோகப் பொருட்கள்)
+              </h2>
+              <span id="todayCountBadge" class="badge badge-success">0 Items Active</span>
+            </div>
+            <div style="font-size: 0.85rem; color: #15803d; margin-top: 4px;">
+              Only items selected here will be dispensed during smart card scanning. Users will not see other inventory items.
+            </div>
+          </div>
+        </div>
+
+        <!-- Grid of Today's Items (or Alert if Empty) -->
+        <div id="todayItemsGrid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px;">
+          <!-- Rendered dynamically -->
+        </div>
+      </div>
+
+      <!-- 2. MAIN SECTION: ALL 10 INVENTORY ITEMS & STOCK MANAGEMENT -->
+      <div style="margin-bottom: 36px;">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 16px; flex-wrap: wrap; gap: 10px;">
+          <div>
+            <h2 style="font-size: 1.3rem; font-weight: 800; color: var(--slate-900);">
+              All Inventory Commodities (அனைத்து பொருட்கள்)
+            </h2>
+            <div style="font-size: 0.85rem; color: var(--slate-500);">
+              Live warehouse stock levels. Use <strong>+ ADD STOCK</strong> to refill or <strong>+ ADD TO TODAY</strong> to include in today's distribution.
+            </div>
+          </div>
+          <div id="allProductsCount" class="badge badge-info">10 Commodities</div>
+        </div>
+
+        <div id="inventoryCardsGrid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px;">
+          <div class="empty-state"><div class="empty-title">Loading commodities from Cloud Firestore...</div></div>
+        </div>
+      </div>
+
+      <!-- 3. RECENT INWARD REPLENISHMENTS LEDGER -->
+      <div class="card" style="margin-top: 10px;">
+        <div class="card-header">
+          <div class="card-title">
+            <svg class="icon-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+            <span>Recent Godown Inward Replenishments</span>
+          </div>
+        </div>
+        <div class="card-body" style="padding:0;">
+          <div class="table-responsive" style="border:none;">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Commodity</th>
+                  <th>Quantity Added</th>
+                  <th>Previous &rarr; New Stock</th>
+                  <th>Delivery Reference</th>
+                  <th>Timestamp</th>
+                </tr>
+              </thead>
+              <tbody id="recentMovementsTableBody">
+                <tr><td colspan="5" class="text-muted" style="text-align:center; padding:20px;">Loading stock audit log...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- MODAL: ADD STOCK TO COMMODITY -->
+  <div class="modal-overlay" id="modalAddStock">
+    <div class="modal-content" style="max-width: 480px;">
+      <div class="modal-header">
+        <div class="modal-title">
+          <span>+ Add Stock / சரக்கு நிரப்புதல்</span>
+          <div id="addStockProductTitle" style="font-size:0.85rem; color:var(--tn-green-700); font-weight:bold;">--</div>
+        </div>
+        <button class="modal-close-btn" onclick="window.NP_COMMON.closeModal('modalAddStock')">&times;</button>
+      </div>
+
+      <form id="addStockModalForm">
+        <div class="modal-body">
+          <input type="hidden" id="addStockProductId">
+
+          <div style="background: var(--slate-50); border: 1px solid var(--slate-200); border-radius: 8px; padding: 12px; margin-bottom: 16px;">
+            <div style="display:flex; justify-content:space-between; font-size:0.85rem; margin-bottom:4px;">
+              <span>Current Available Stock:</span>
+              <strong id="addStockCurrentValue">0.0 KG</strong>
+            </div>
+            <div style="display:flex; justify-content:space-between; font-size:0.85rem;">
+              <span>Max Warehouse Capacity:</span>
+              <strong id="addStockCapacityValue">1000.0 KG</strong>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="addStockQtyInput">
+              Quantity to Add <span class="tamil">(கூடுதல் அளவு)</span>
+            </label>
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <input type="number" id="addStockQtyInput" class="form-control" step="0.1" min="0.1" placeholder="e.g. 50" required>
+              <span id="addStockUnitBadge" class="badge badge-info" style="font-size:0.9rem; padding:8px 12px;">KG</span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="addStockReferenceInput">
+              Delivery Chalan / Invoice Reference <span class="tamil">(ரசீது எண்)</span>
+            </label>
+            <input type="text" id="addStockReferenceInput" class="form-control" placeholder="e.g. TNCSC/GODOWN-42/CH-8821">
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" onclick="window.NP_COMMON.closeModal('modalAddStock')">Cancel</button>
+          <button type="submit" id="btnSubmitAddStock" class="btn btn-primary">Update Stock in Firebase</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL: ADD NEW COMMODITY ITEM -->
+  <div class="modal-overlay" id="modalNewProduct">
+    <div class="modal-content" style="max-width: 520px;">
+      <div class="modal-header">
+        <div class="modal-title">
+          <span>Add New Commodity Item</span>
+          <div style="font-size:0.75rem; font-family:var(--font-tamil); color:var(--tn-green-700); font-weight:normal;">புதிய பொருள் சேர்த்தல்</div>
+        </div>
+        <button class="modal-close-btn" onclick="window.NP_COMMON.closeModal('modalNewProduct')">&times;</button>
+      </div>
+
+      <form id="newProductForm">
+        <div class="modal-body">
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="newProdName">Product Name (English)</label>
+              <input type="text" id="newProdName" class="form-control" placeholder="e.g. Ragi" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="newProdNameTa">Name (Tamil / தமிழ்)</label>
+              <input type="text" id="newProdNameTa" class="form-control" placeholder="எ.கா. கேழ்வரகு" required>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="newProdUnit">Measurement Unit</label>
+              <select id="newProdUnit" class="form-control" required>
+                <option value="KG">KG (Kilograms)</option>
+                <option value="Litre">Litre</option>
+                <option value="Kit">Kit / தொகுப்பு</option>
+                <option value="Pack">Pack</option>
+                <option value="Nos">Nos (Count)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="newProdStock">Initial Available Stock</label>
+              <input type="number" id="newProdStock" class="form-control" step="0.1" min="0" placeholder="100.0" required>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="newProdCapacity">Max Warehouse Capacity</label>
+              <input type="number" id="newProdCapacity" class="form-control" step="0.1" min="1" placeholder="500.0" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="newProdQuota">Default Entitlement Quota</label>
+              <input type="number" id="newProdQuota" class="form-control" step="0.1" min="0.1" placeholder="1.0" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label style="display:flex; align-items:center; gap:8px; cursor:pointer;">
+              <input type="checkbox" id="newProdTodayCheck" checked style="width:18px; height:18px;">
+              <span style="font-size:0.9rem; font-weight:600;">Include in Today's Distribution List immediately</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" onclick="window.NP_COMMON.closeModal('modalNewProduct')">Cancel</button>
+          <button type="submit" id="btnSubmitNewProduct" class="btn btn-primary">Create Commodity</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+
+  <!-- App Scripts -->
+  <script src="assets/js/firebase-config.js"></script>
+  <script src="assets/js/common.js"></script>
+  <script src="assets/js/inventory.js"></script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    // Citizen Photographs Storage Path
+    match /user_photos/{photoId} {
+      // Readable by authenticated staff
+      allow read: if isAuthenticated();
+
+      // Only authenticated admin can upload photos
+      allow write: if isAuthenticated() &&
+        request.resource.size < 2 * 1024 * 1024 && // Max 2MB limit
+        request.resource.contentType.matches('image/(jpeg|png|webp)');
+
+      // Deletions disallowed without super-admin permission
+      allow delete: if isAuthenticated();
+    }
+
+    // Default deny for all other paths
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}

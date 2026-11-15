@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="ta, en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Management | NAMMAPANGU – நம்ம பங்கு</title>
+  <link rel="icon" type="image/png" href="assets/images/Tamil_nadu_logo.png">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/responsive.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Tamil:wght@400;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- PROTOTYPE DISCLAIMER -->
+  <div class="prototype-banner">
+    <span class="prototype-badge">Prototype Demonstration</span>
+    <span>Inspired by Tamil Nadu Public Distribution System (PDS) | Academic / Research Model – Not an Official Government Portal</span>
+  </div>
+
+  <!-- GOVERNMENT BRANDING HEADER -->
+  <header class="app-header">
+    <div class="header-left">
+      <button class="mobile-nav-toggle" id="mobileNavToggle" aria-label="Toggle navigation">
+        <svg class="icon-svg" viewBox="0 0 24 24"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+      </button>
+      <img src="assets/images/Tamil_nadu_logo.png" alt="TN Logo" class="tn-emblem">
+      <div class="brand-titles">
+        <div class="gov-subtext">
+          <span>தமிழ்நாடு அரசு</span> • <span>PUBLIC DISTRIBUTION SYSTEM</span>
+        </div>
+        <div class="brand-main-title">
+          <span>NAMMAPANGU</span>
+          <span class="brand-tamil">நம்ம பங்கு</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="header-right">
+      <div class="cm-portrait-container">
+        <img src="assets/images/CM Vijay.jpg" alt="Hon'ble Chief Minister" class="cm-photo">
+        <div class="cm-details">
+          <span class="cm-role">மாண்புமிகு முதலமைச்சர்</span>
+          <span class="cm-name">Hon'ble Chief Minister</span>
+          <span class="cm-tag">Public Service Automation</span>
+        </div>
+      </div>
+
+      <div class="header-meta">
+        <div id="liveClock" class="live-clock">--:--:--</div>
+        <div class="hardware-quick-badge">
+          <span class="pulse-dot"></span>
+          <span>ESP32 Ready</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- APP CONTAINER -->
+  <div class="app-container">
+
+    <!-- SIDEBAR NAVIGATION -->
+    <!-- SIMPLIFIED 5-TAB ADMIN SIDEBAR -->
+    <aside class="app-sidebar">
+      <div class="sidebar-menu-wrapper">
+        <div class="sidebar-heading">Admin Operations</div>
+        <ul class="nav-list">
+          <li class="nav-item">
+            <a href="dashboard.html">
+              <span class="nav-icon"><svg class="icon-svg" viewBox="0 0 24 24"><rect width="7" height="9" x="3" y="3" rx="1"></rect><rect width="7" height="5" x="14" y="3" rx="1"></rect><rect width="7" height="9" x="14" y="12" rx="1"></rect><rect width="7" height="5" x="3" y="16" rx="1"></rect></svg></span>
+              <div class="nav-labels">
+                <span class="nav-title-en">Dashboard</span>
+                <span class="nav-title-ta">கண்ணோட்டம்</span>
+              </div>
+            </a>
+          </li>
+          <li class="nav-item active">
+            <a href="users.html">
+              <span class="nav-icon"><svg class="icon-svg" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg></span>
+              <div class="nav-labels">
+                <span class="nav-title-en">Citizens</span>
+                <span class="nav-title-ta">பயனாளர்கள்</span>
+              </div>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="inventory.html">
+              <span class="nav-icon"><svg class="icon-svg" viewBox="0 0 24 24"><path d="m7.5 4.27 9 5.15"></path><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"></path></svg></span>
+              <div class="nav-labels">
+                <span class="nav-title-en">Inventory &amp; Today's Items</span>
+                <span class="nav-title-ta">பொருட்கள் இருப்பு</span>
+              </div>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="transactions.html">
+              <span class="nav-icon"><svg class="icon-svg" viewBox="0 0 24 24"><line x1="12" x2="12" y1="2" y2="22"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg></span>
+              <div class="nav-labels">
+                <span class="nav-title-en">Transactions</span>
+                <span class="nav-title-ta">பரிவர்த்தனைகள்</span>
+              </div>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="hardware.html">
+              <span class="nav-icon"><svg class="icon-svg" viewBox="0 0 24 24"><rect width="18" height="12" x="3" y="6" rx="2"></rect><circle cx="8" cy="12" r="1"></circle><circle cx="16" cy="12" r="1"></circle></svg></span>
+              <div class="nav-labels">
+                <span class="nav-title-en">Hardware &amp; ESP32</span>
+                <span class="nav-title-ta">வன்பொருள் இணைப்பு</span>
+              </div>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- SIDEBAR FOOTER -->
+      <div class="sidebar-footer">
+        <div class="admin-profile-box">
+          <div class="admin-avatar">A</div>
+          <div class="admin-info">
+            <span class="admin-name">Administrator</span>
+            <span class="admin-role">PDS Taluk Officer</span>
+          </div>
+        </div>
+        <button id="btnLogout" class="btn-logout">
+          <svg class="icon-svg" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" x2="9" y1="12" y2="12"></line></svg>
+          <span>வெளியேறு (Logout)</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+      <div class="page-header">
+        <div class="page-title-block">
+          <h1 class="page-title">
+            <span>Citizen Smart Card Management</span>
+            <span class="page-title-ta">பயனாளர்கள் மேலாண்மை</span>
+          </h1>
+          <div class="page-desc">Register smart ration card holders, configure RFID chips, and manage monthly entitlements.</div>
+        </div>
+        <div class="d-flex gap-2">
+          <a href="dashboard.html" class="btn btn-secondary">
+            <span>← Back to Dashboard</span>
+          </a>
+          <!-- SCAN FOR NEW USER BUTTON -->
+          <button id="btnScanForNewUser" class="btn btn-saffron">
+            <svg class="icon-svg" viewBox="0 0 24 24"><rect width="20" height="14" x="2" y="5" rx="2"></rect><line x1="2" x2="22" y1="10" y2="10"></line></svg>
+            <span>SCAN FOR NEW USER</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- TABLE TOOLBAR -->
+      <div class="table-toolbar">
+        <div class="search-box">
+          <svg class="icon-svg search-icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          <input type="text" id="searchUserInput" class="form-control" placeholder="Search by Citizen Name, Mobile, Aadhaar, or RFID...">
+        </div>
+
+        <div class="d-flex align-center gap-2">
+          <select id="filterUserStatus" class="form-control" style="width: auto;">
+            <option value="all">All Citizens</option>
+            <option value="active">Active Only</option>
+            <option value="blocked">Blocked Only</option>
+          </select>
+          <span id="userCountBadge" class="badge badge-info">Loading...</span>
+        </div>
+      </div>
+
+      <!-- CITIZENS DATA TABLE -->
+      <div class="card" style="padding:0;">
+        <div class="table-responsive">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Citizen Details</th>
+                <th>RFID Smart UID</th>
+                <th>Aadhaar Identifier</th>
+                <th>Mobile Number</th>
+                <th>Registration Date</th>
+                <th>Status</th>
+                <th>Monthly Quota</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="usersTableBody">
+              <tr><td colspan="8" class="text-muted" style="text-align:center; padding:24px;">Connecting to Cloud Firestore...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- MODAL: ADD / SCAN FOR NEW CITIZEN -->
+  <div class="modal-overlay" id="modalNewUser">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="modal-title">
+          <span>Register Citizen Smart Ration Card</span>
+          <div style="font-size:0.75rem; font-family:var(--font-tamil); color:var(--tn-green-700); font-weight:normal;">புதிய குடும்ப அட்டைப் பதிவு</div>
+        </div>
+        <button class="modal-close-btn" onclick="window.NP_COMMON.closeModal('modalNewUser')">&times;</button>
+      </div>
+
+      <form id="newUserForm">
+        <div class="modal-body">
+          <!-- RFID Card Detection Box -->
+          <div style="background:var(--slate-50); border:2px dashed var(--slate-300); border-radius:10px; padding:16px; text-align:center; margin-bottom:18px;">
+            <div id="regRfidStatus" style="margin-bottom:8px;">
+              <span class="badge badge-warning">Waiting for RFID Card Tap...</span>
+            </div>
+            <div style="display:flex; justify-content:center; align-items:center; gap:8px;">
+              <label for="regRfidUid" style="font-size:0.8rem; font-weight:700;">Scanned RFID UID:</label>
+              <input type="text" id="regRfidUid" class="form-control" style="max-width:180px; font-family:monospace; font-weight:700; text-align:center;" placeholder="A1B2C3D4" required>
+            </div>
+            <div style="font-size:0.72rem; color:var(--slate-500); margin-top:4px;">
+              Tap card on RC522 reader or manually enter UID for testing.
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="regFullName">
+              Citizen Full Name <span class="tamil">(குடும்பத் தலைவர் பெயர்)</span>
+            </label>
+            <input type="text" id="regFullName" class="form-control" placeholder="e.g. Subramanian K" required>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="regAadhaar">
+                12-Digit Aadhaar Identifier <span class="tamil">(ஆதார் எண்)</span>
+              </label>
+              <input type="text" id="regAadhaar" class="form-control" placeholder="123456789012" maxlength="12" pattern="\d{12}" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="regMobile">
+                Mobile Number <span class="tamil">(அலைபேசி எண்)</span>
+              </label>
+              <input type="tel" id="regMobile" class="form-control" placeholder="9876543210" maxlength="10" pattern="\d{10}" required>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="regPin">
+                6-Digit Distribution PIN <span class="tamil">(6 இலக்க ரகசிய பின்)</span>
+              </label>
+              <input type="password" id="regPin" class="form-control" placeholder="••••••" maxlength="6" pattern="\d{6}" required autocomplete="new-password">
+              <span style="font-size:0.7rem; color:var(--slate-500);">Stored as cryptographic salted hash. Plaintext is never saved.</span>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="regPhotoFile">
+                Citizen Photograph <span class="tamil">(புகைப்படம்)</span>
+              </label>
+              <input type="file" id="regPhotoFile" class="form-control" accept="image/*">
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" onclick="window.NP_COMMON.closeModal('modalNewUser')">Cancel</button>
+          <button type="submit" id="btnSubmitNewUser" class="btn btn-primary">Save &amp; Register User</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL: EDIT CITIZEN (PERMANENT LOCKED RFID) -->
+  <div class="modal-overlay" id="modalEditUser">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 class="modal-title">Edit Citizen Profile &bull; பயனாளி விவரம் திருத்து</h3>
+        <button class="modal-close-btn" onclick="window.NP_COMMON.closeModal('modalEditUser')">&times;</button>
+      </div>
+      <form id="editUserForm">
+        <input type="hidden" id="editUserId">
+        <div class="modal-body">
+          <div class="alert alert-info" style="margin-bottom: 14px; font-size: 0.8rem; background: var(--tn-green-50); border: 1px solid var(--tn-green-200); color: var(--tn-green-900); padding: 10px; border-radius: 6px;">
+            <strong>Tamper-Proof Smart Card ID:</strong> The RFID UID is permanently bonded upon enrollment and cannot be modified by anyone to ensure fair distribution integrity.
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="editRfidUid">Permanent RFID Card UID (Locked)</label>
+              <input type="text" id="editRfidUid" class="form-control" readonly disabled style="background:var(--slate-100); font-family:monospace; font-weight:700; color:var(--tn-green-800);">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="editAadhaar">Aadhaar Identifier (Locked)</label>
+              <input type="text" id="editAadhaar" class="form-control" readonly disabled style="background:var(--slate-100); font-weight:600;">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="editFullName">Full Name (குடும்பத் தலைவர் பெயர்) *</label>
+              <input type="text" id="editFullName" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="editMobile">Mobile Number (அலைபேசி எண்) *</label>
+              <input type="tel" id="editMobile" class="form-control" maxlength="10" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="editPhotoFile">Update Photo (Cloudinary Free Storage)</label>
+            <input type="file" id="editPhotoFile" class="form-control" accept="image/*">
+            <div id="editCurrentPhotoPreview" style="margin-top: 8px;"></div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" onclick="window.NP_COMMON.closeModal('modalEditUser')">Cancel</button>
+          <button type="submit" id="btnSubmitEditUser" class="btn btn-primary">Save Profile Changes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL: VIEW MONTHLY QUOTA -->
+  <div class="modal-overlay" id="modalViewQuota">
+    <div class="modal-content" style="max-width: 480px;">
+      <div class="modal-header">
+        <div class="modal-title">
+          <span>Monthly Entitlement Quota</span>
+          <div id="quotaModalUserName" style="font-size:0.85rem; color:var(--tn-green-700); font-weight:normal;">--</div>
+        </div>
+        <button class="modal-close-btn" onclick="window.NP_COMMON.closeModal('modalViewQuota')">&times;</button>
+      </div>
+      <div class="modal-body" id="quotaModalContent">
+        <p class="text-muted">Loading...</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" onclick="window.NP_COMMON.closeModal('modalViewQuota')">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-storage-compat.js"></script>
+
+  <!-- App Scripts -->
+  <script src="assets/js/firebase-config.js"></script>
+  <script src="assets/js/common.js"></script>
+  <script src="assets/js/hardware.js"></script>
+  <script src="assets/js/users.js"></script>
+</body>
+</html>

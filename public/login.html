@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ta, en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portal Sign In | NAMMAPANGU – நம்ம பங்கு</title>
+  <link rel="icon" type="image/png" href="assets/images/Tamil_nadu_logo.png">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/responsive.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Tamil:wght@400;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body style="min-height: 100vh; display: flex; flex-direction: column; background: var(--slate-50);">
+
+  <!-- PROTOTYPE DISCLAIMER -->
+  <div class="prototype-banner">
+    <span class="prototype-badge">Prototype Demonstration</span>
+    <span>Inspired by Tamil Nadu Public Distribution System (PDS) | Academic / Research Model – Not an Official Government Portal</span>
+  </div>
+
+  <div style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 24px 16px;">
+    <!-- Back to Home Link -->
+    <div style="width: 100%; max-width: 480px; margin-bottom: 12px; display: flex; justify-content: flex-start;">
+      <a href="index.html" class="btn btn-sm btn-secondary" style="display: inline-flex; align-items: center; gap: 6px;">
+        <svg class="icon-svg" viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+        <span>← முகப்புக்குத் திரும்பு (Back to Home)</span>
+      </a>
+    </div>
+
+    <div class="card" style="width: 100%; max-width: 480px; box-shadow: var(--shadow-xl); border-radius: 16px; overflow: hidden; border: 1px solid var(--slate-200);">
+
+      <!-- Card Top Brand Banner -->
+      <div style="background: linear-gradient(135deg, #064e3b 0%, #065f46 100%); color: var(--white); padding: 24px 20px; text-align: center;">
+        <div style="display: flex; justify-content: center; align-items: center; gap: 14px; margin-bottom: 10px;">
+          <img src="assets/images/Tamil_nadu_logo.png" alt="TN Logo" style="height: 52px; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
+          <img src="assets/images/CM Vijay.jpg" alt="Hon'ble CM" style="width: 46px; height: 46px; border-radius: 50%; object-fit: cover; border: 2px solid #34d399;">
+        </div>
+        <div style="font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.8px; color: #a7f3d0; font-weight: 700;">
+          தமிழ்நாடு அரசு &bull; பொது விநியோகத் திட்டம்
+        </div>
+        <h1 style="font-size: 1.45rem; font-weight: 800; margin: 4px 0 2px; color: var(--white);">
+          NAMMAPANGU <span style="font-family: var(--font-tamil); color: #fde68a;">நம்ம பங்கு</span>
+        </h1>
+        <div style="font-size: 0.75rem; opacity: 0.9;">Unified Portal: Officer Access &amp; Citizen Smart Quota</div>
+      </div>
+
+      <!-- Single Unified Login Card Body -->
+      <div class="card-body" style="padding: 24px 22px;">
+        <form id="adminLoginForm">
+          <div class="form-group">
+            <label for="adminEmail" class="form-label">
+              Email / Mobile / Aadhaar <span class="tamil">(மின்னஞ்சல் / அலைபேசி / ஆதார்)</span>
+            </label>
+            <input type="text" id="adminEmail" class="form-control" placeholder="admin@tn.gov.in or 10-digit mobile" required autocomplete="username">
+            <div style="font-size:0.72rem; color:var(--slate-500); margin-top:3px;">
+              Officers: Use Official Email | Citizens: Use Registered Mobile or Aadhaar
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 6px;">
+              <label for="adminPassword" class="form-label" style="margin-bottom: 0;">
+                Password / 6-Digit PIN <span class="tamil">(கடவுச்சொல் / 6-இலக்க பின்)</span>
+              </label>
+              <button type="button" id="btnForgotPassword" style="background: none; border: none; color: var(--tn-green-700); font-size: 0.75rem; font-weight: 600; cursor: pointer;">
+                Forgot Password?
+              </button>
+            </div>
+            <input type="password" id="adminPassword" class="form-control" placeholder="••••••••••••" required autocomplete="current-password">
+          </div>
+
+          <button type="submit" id="btnLoginSubmit" class="btn btn-primary" style="width: 100%; padding: 11px; margin-top: 6px; font-size: 0.92rem;">
+            <svg class="icon-svg" viewBox="0 0 24 24"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path><polyline points="10 17 15 12 10 7"></polyline><line x1="15" x2="3" y1="12" y2="12"></line></svg>
+            <span>Sign In to NAMMAPANGU</span>
+          </button>
+        </form>
+
+        <div style="margin: 16px 0; display: flex; align-items: center; gap: 10px; color: var(--slate-400); font-size: 0.74rem;">
+          <div style="flex: 1; height: 1px; background: var(--slate-200);"></div>
+          <span>OR QUICK ACCESS</span>
+          <div style="flex: 1; height: 1px; background: var(--slate-200);"></div>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 8px;">
+          <button type="button" id="btnScanCardLogin" class="btn btn-saffron" style="width: 100%; font-size: 0.84rem;">
+            <svg class="icon-svg" viewBox="0 0 24 24"><rect width="20" height="14" x="2" y="5" rx="2"></rect><line x1="2" x2="22" y1="10" y2="10"></line></svg>
+            <span>Tap RFID Smart Card to Sign In</span>
+          </button>
+
+          <button type="button" id="btnDemoAdmin" class="btn btn-secondary" style="width: 100%; font-size: 0.8rem; border-style: dashed;">
+            <svg class="icon-svg" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+            <span>Admin: admin@tn.gov.in / admin2026</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="card-footer" style="text-align: center; font-size: 0.72rem; color: var(--slate-500);">
+        Citizen portal sessions expire after 5 minutes for personal data protection &bull; Cloud Firestore AES-256
+      </div>
+    </div>
+  </div>
+
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+
+  <!-- App Scripts -->
+  <script src="assets/js/firebase-config.js"></script>
+  <script src="assets/js/common.js"></script>
+  <script src="assets/js/auth.js"></script>
+</body>
+</html>

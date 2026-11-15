@@ -1,0 +1,35 @@
+# Node modules
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment and private secrets
+.env
+.env.local
+.env.production
+.env.staging
+service-account*.json
+*.pem
+*.key
+
+# Firebase runtime & build files
+.firebase/
+firebase-debug.log*
+firestore-debug.log*
+ui-debug.log*
+
+# Vercel deployment cache
+.vercel/
+
+# OS metadata & IDE artifacts
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+
+# Arduino / ESP32 build cache
+esp32/build/
+*.bin
+*.elf

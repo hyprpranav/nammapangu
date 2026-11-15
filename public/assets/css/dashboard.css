@@ -1,0 +1,259 @@
+/* ==========================================================================
+   NAMMAPANGU - DASHBOARD SPECIFIC STYLES
+   ========================================================================== */
+
+/* Summary Metric Cards Grid */
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 18px;
+  margin-bottom: 28px;
+}
+
+.metric-card {
+  background: var(--white);
+  border-radius: var(--border-radius);
+  border: 1px solid var(--slate-200);
+  padding: 18px 20px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+  position: relative;
+  overflow: hidden;
+}
+
+.metric-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.metric-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--tn-green-700);
+}
+
+.metric-card.saffron::before { background: var(--tn-saffron-600); }
+.metric-card.gold::before    { background: var(--tn-gold-500); }
+.metric-card.info::before    { background: var(--info); }
+.metric-card.danger::before  { background: var(--danger); }
+.metric-card.success::before { background: var(--success); }
+
+.metric-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.metric-label {
+  font-size: 0.76rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--slate-500);
+  margin-bottom: 2px;
+}
+
+.metric-label-ta {
+  font-size: 0.72rem;
+  font-family: var(--font-tamil);
+  color: var(--tn-green-800);
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.metric-value {
+  font-size: 1.85rem;
+  font-weight: 800;
+  color: var(--slate-900);
+  line-height: 1.1;
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+}
+
+.metric-unit {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--slate-500);
+}
+
+.metric-sub {
+  font-size: 0.72rem;
+  color: var(--slate-500);
+  margin-top: 6px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.metric-icon-box {
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+  background: var(--tn-green-50);
+  color: var(--tn-green-700);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.metric-card.saffron .metric-icon-box { background: var(--tn-saffron-50); color: var(--tn-saffron-700); }
+.metric-card.gold .metric-icon-box    { background: var(--tn-gold-100); color: var(--tn-gold-600); }
+.metric-card.info .metric-icon-box    { background: #eff6ff; color: var(--info); }
+.metric-card.danger .metric-icon-box  { background: #fef2f2; color: var(--danger); }
+.metric-card.success .metric-icon-box { background: var(--tn-green-50); color: var(--success); }
+
+/* Dashboard Two-Column Grid */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+/* Quick Hardware Status Panel */
+.hardware-status-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.hw-device-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  background: var(--slate-50);
+  border-radius: 8px;
+  border: 1px solid var(--slate-200);
+}
+
+.hw-device-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.hw-device-name {
+  font-size: 0.84rem;
+  font-weight: 700;
+  color: var(--slate-800);
+}
+
+.hw-device-desc {
+  font-size: 0.72rem;
+  color: var(--slate-500);
+}
+
+/* Mini Inventory Progress Bars in Dashboard */
+.inventory-mini-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.inventory-mini-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.inv-meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
+.inv-name {
+  color: var(--slate-800);
+}
+
+.inv-qty {
+  color: var(--slate-600);
+}
+
+.progress-track {
+  width: 100%;
+  height: 8px;
+  background-color: var(--slate-100);
+  border-radius: 9999px;
+  overflow: hidden;
+  border: 1px solid var(--slate-200);
+}
+
+.progress-bar-fill {
+  height: 100%;
+  border-radius: 9999px;
+  transition: width 0.4s ease;
+  background: linear-gradient(90deg, var(--tn-green-600), var(--tn-green-500));
+}
+
+.progress-bar-fill.warning {
+  background: linear-gradient(90deg, var(--tn-gold-600), var(--tn-gold-500));
+}
+
+.progress-bar-fill.danger {
+  background: linear-gradient(90deg, #dc2626, #ef4444);
+}
+
+/* Activity Feed */
+.activity-feed {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.activity-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 10px;
+  border-radius: 8px;
+  transition: background-color var(--transition-fast);
+}
+
+.activity-item:hover {
+  background-color: var(--slate-50);
+}
+
+.activity-icon-badge {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--tn-green-100);
+  color: var(--tn-green-800);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 0.8rem;
+}
+
+.activity-details {
+  flex: 1;
+}
+
+.activity-title {
+  font-size: 0.84rem;
+  font-weight: 700;
+  color: var(--slate-800);
+}
+
+.activity-subtitle {
+  font-size: 0.75rem;
+  color: var(--slate-500);
+}
+
+.activity-time {
+  font-size: 0.7rem;
+  color: var(--slate-400);
+  white-space: nowrap;
+}

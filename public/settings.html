@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="ta, en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Settings | NAMMAPANGU – நம்ம பங்கு</title>
+  <link rel="icon" type="image/png" href="assets/images/Tamil_nadu_logo.png">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/responsive.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Tamil:wght@400;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- PROTOTYPE DISCLAIMER -->
+  <div class="prototype-banner">
+    <span class="prototype-badge">Prototype Demonstration</span>
+    <span>Inspired by Tamil Nadu Public Distribution System (PDS) | Academic / Research Model – Not an Official Government Portal</span>
+  </div>
+
+  <!-- HEADER -->
+  <header class="app-header">
+    <div class="header-left">
+      <button class="mobile-nav-toggle" id="mobileNavToggle" aria-label="Toggle navigation">
+        <svg class="icon-svg" viewBox="0 0 24 24"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+      </button>
+      <img src="assets/images/Tamil_nadu_logo.png" alt="TN Logo" class="tn-emblem">
+      <div class="brand-titles">
+        <div class="gov-subtext">
+          <span>தமிழ்நாடு அரசு</span> • <span>PUBLIC DISTRIBUTION SYSTEM</span>
+        </div>
+        <div class="brand-main-title">
+          <span>NAMMAPANGU</span>
+          <span class="brand-tamil">நம்ம பங்கு</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="header-right">
+      <div class="cm-portrait-container">
+        <img src="assets/images/CM Vijay.jpg" alt="Hon'ble Chief Minister" class="cm-photo">
+        <div class="cm-details">
+          <span class="cm-role">மாண்புமிகு முதலமைச்சர்</span>
+          <span class="cm-name">Hon'ble Chief Minister</span>
+          <span class="cm-tag">Public Service Automation</span>
+        </div>
+      </div>
+
+      <div class="header-meta">
+        <div id="liveClock" class="live-clock">--:--:--</div>
+        <div class="hardware-quick-badge">
+          <span class="pulse-dot"></span>
+          <span>ESP32 Ready</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- APP CONTAINER -->
+  <div class="app-container">
+
+    <!-- SIDEBAR -->
+    <aside class="app-sidebar">
+      <div class="sidebar-menu-wrapper">
+        <div class="sidebar-heading">PDS Operations</div>
+        <ul class="nav-list">
+          <li class="nav-item">
+            <a href="dashboard.html">
+              <span class="nav-icon"><svg class="icon-svg" viewBox="0 0 24 24"><rect width="7" height="9" x="3" y="3" rx="1"></rect><rect width="7" height="5" x="14" y="3" rx="1"></rect><rect width="7" height="9" x="14" y="12" rx="1"></rect><rect width="7" height="5" x="3" y="16" rx="1"></rect></svg></span>
+              <div class="nav-labels">
+                <span class="nav-title-en">Dashboard</span>
+                <span class="nav-title-ta">கண்ணோட்டம்</span>
+              </div>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="users.html">
+              <span class="nav-icon"><svg class="icon-svg" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg></span>
+              <div class="nav-labels">
+                <span class="nav-title-en">Users</span>
+                <span class="nav-title-ta">பயனாளர்கள்</span>
+              </div>
+            </a>
+          </li>
+          <li class="nav-item primary-scanner">
+            <a href="scanner.html">
+              <span class="nav-icon"><svg class="icon-svg" viewBox="0 0 24 24"><rect width="20" height="14" x="2" y="5" rx="2"></rect><line x1="2" x2="22" y1="10" y2="10"></line></svg></span>
+              <div class="nav-labels">
+                <span class="nav-title-en">RFID Scanner</span>
+                <span class="nav-title-ta">அட்டை ஸ்கேனர்</span>
+              </div>
+              <span class="primary-badge">PRIMARY</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="inventory.html">
+              <span class="nav-icon"><svg class="icon-svg" viewBox="0 0 24 24"><path d="m7.5 4.27 9 5.15"></path><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"></path></svg></span>
+              <div class="nav-labels">
+                <span class="nav-title-en">Items &amp; Inventory</span>
+                <span class="nav-title-ta">பொருட்கள் இருப்பு</span>
+              </div>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="distribution.html">
+              <span class="nav-icon"><svg class="icon-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="m16 10-4 4-2-2"></path></svg></span>
+              <div class="nav-labels">
+                <span class="nav-title-en">Distribution</span>
+                <span class="nav-title-ta">பங்கீடு வழங்கல்</span>
+              </div>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="transactions.html">
+              <span class="nav-icon"><svg class="icon-svg" viewBox="0 0 24 24"><line x1="12" x2="12" y1="2" y2="22"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg></span>
+              <div class="nav-labels">
+                <span class="nav-title-en">Transaction History</span>
+                <span class="nav-title-ta">பரிவர்த்தனைகள்</span>
+              </div>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="reports.html">
+              <span class="nav-icon"><svg class="icon-svg" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" x2="8" y1="13" y2="13"></line><line x1="16" x2="8" y1="17" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg></span>
+              <div class="nav-labels">
+                <span class="nav-title-en">Reports &amp; Export</span>
+                <span class="nav-title-ta">அறிக்கைகள்</span>
+              </div>
+            </a>
+          </li>
+        </ul>
+
+        <div class="sidebar-heading" style="margin-top: 16px;">System &amp; Hardware</div>
+        <ul class="nav-list">
+          <li class="nav-item">
+            <a href="hardware.html">
+              <span class="nav-icon"><svg class="icon-svg" viewBox="0 0 24 24"><rect width="18" height="12" x="3" y="6" rx="2"></rect><circle cx="8" cy="12" r="1"></circle><circle cx="16" cy="12" r="1"></circle></svg></span>
+              <div class="nav-labels">
+                <span class="nav-title-en">Hardware Connection</span>
+                <span class="nav-title-ta">வன்பொருள் இணைப்பு</span>
+              </div>
+            </a>
+          </li>
+          <li class="nav-item active">
+            <a href="settings.html">
+              <span class="nav-icon"><svg class="icon-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg></span>
+              <div class="nav-labels">
+                <span class="nav-title-en">Settings</span>
+                <span class="nav-title-ta">அமைப்புகள்</span>
+              </div>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- FOOTER -->
+      <div class="sidebar-footer">
+        <div class="admin-profile-box">
+          <div class="admin-avatar">A</div>
+          <div class="admin-info">
+            <span class="admin-name">Administrator</span>
+            <span class="admin-role">PDS Taluk Officer</span>
+          </div>
+        </div>
+        <button id="btnLogout" class="btn-logout">
+          <svg class="icon-svg" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" x2="9" y1="12" y2="12"></line></svg>
+          <span>வெளியேறு (Logout)</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+      <div class="page-header">
+        <div class="page-title-block">
+          <h1 class="page-title">
+            <span>System &amp; Hardware Settings</span>
+            <span class="page-title-ta">அமைப்புகள் மற்றும் அளவுத்திருத்தம்</span>
+          </h1>
+          <div class="page-desc">Fair Price Shop identity, load cell calibration constants, and cloud configuration.</div>
+        </div>
+        <div>
+          <a href="dashboard.html" class="btn btn-secondary btn-sm">
+            <span>← Back to Dashboard</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="dashboard-grid">
+
+        <!-- LEFT: FAIR PRICE SHOP & CALIBRATION FORM -->
+        <div>
+          <!-- Shop Details Card -->
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">
+                <svg class="icon-svg" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>
+                <span>Fair Price Shop Identity (PDS Outlet)</span>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label">PDS Shop Code</label>
+                  <input type="text" class="form-control" value="TN-PDS-CH-042" readonly>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Shop Name</label>
+                  <input type="text" class="form-control" value="Egmore Cooperative Fair Price Shop No. 14">
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label">District (மாவட்டம்)</label>
+                  <input type="text" class="form-control" value="Chennai (சென்னை)">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Taluk (வட்டம்)</label>
+                  <input type="text" class="form-control" value="Egmore (எழும்பூர்)">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Load Cell Calibration Card -->
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">
+                <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 2v20"></path><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                <span>HX711 Strain Gauge Calibration Constants</span>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label">Calibration Factor</label>
+                  <input type="number" class="form-control" value="420.5" step="0.1">
+                  <span style="font-size:0.72rem; color:var(--slate-500);">Calibration slope calculated with known 1.000 KG benchmark.</span>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Tare Zero Offset</label>
+                  <input type="number" class="form-control" value="85420">
+                  <span style="font-size:0.72rem; color:var(--slate-500);">Raw ADC base offset at zero weight.</span>
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label">Weight Tolerance Threshold</label>
+                  <div style="display:flex; align-items:center; gap:8px;">
+                    <input type="number" class="form-control" value="0.02" step="0.01">
+                    <span class="text-bold text-muted">KG</span>
+                  </div>
+                  <span style="font-size:0.72rem; color:var(--slate-500);">&plusmn; 20 grams acceptable dispensing margin.</span>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Security PIN Lockout Limit</label>
+                  <input type="number" class="form-control" value="3" min="1" max="5">
+                  <span style="font-size:0.72rem; color:var(--slate-500);">Lock card after 3 consecutive wrong attempts.</span>
+                </div>
+              </div>
+
+              <button type="button" class="btn btn-primary" onclick="window.NP_COMMON.showToast('success', 'Settings Saved', 'Hardware calibration parameters updated.')">
+                Save Hardware Parameters
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT: CLOUD FIREBASE CONNECTIVITY -->
+        <div>
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">
+                <svg class="icon-svg" viewBox="0 0 24 24"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"></path></svg>
+                <span>Firebase Cloud Connection</span>
+              </div>
+              <span class="badge badge-success">Online</span>
+            </div>
+            <div class="card-body">
+              <div class="form-group">
+                <label class="form-label">Active Project ID</label>
+                <input type="text" id="cfgProjectId" class="form-control" readonly>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Storage Bucket</label>
+                <input type="text" id="cfgStorageBucket" class="form-control" readonly>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Auth Domain</label>
+                <input type="text" id="cfgAuthDomain" class="form-control" readonly>
+              </div>
+
+              <button type="button" id="btnTestFb" class="btn btn-secondary" style="width:100%; margin-top:10px;">
+                <svg class="icon-svg" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                <span>Test Firestore Latency &amp; Permissions</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- CLOUDINARY IMAGE STORAGE SETTINGS -->
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">
+                <svg class="icon-svg" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"></rect><circle cx="9" cy="9" r="2"></circle><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"></path></svg>
+                <span>Cloudinary Free Image Storage</span>
+              </div>
+              <span class="badge badge-success">Free Tier</span>
+            </div>
+            <div class="card-body">
+              <div class="form-group">
+                <label class="form-label" for="cfgCloudinaryName">Cloud Name</label>
+                <input type="text" id="cfgCloudinaryName" class="form-control" placeholder="e.g. your-cloud-name">
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="cfgCloudinaryPreset">Unsigned Upload Preset</label>
+                <input type="text" id="cfgCloudinaryPreset" class="form-control" placeholder="e.g. nammapangu_preset">
+              </div>
+              <button type="button" id="btnSaveCloudinary" class="btn btn-primary" style="width:100%;">
+                Save Cloudinary Settings
+              </button>
+              <div style="font-size:0.72rem; color:var(--slate-500); margin-top:8px;">
+                No credit card needed. Sign up free at cloudinary.com &bull; Settings &gt; Upload &gt; Add unsigned preset.
+              </div>
+            </div>
+          </div>
+
+          <!-- PROTOTYPE COMPLIANCE BADGE -->
+          <div class="card" style="border: 1px solid var(--tn-saffron-100); background: var(--tn-saffron-50);">
+            <div class="card-body" style="font-size: 0.8rem; color: var(--tn-saffron-800); line-height: 1.5;">
+              <strong>Prototype Disclaimer Notice:</strong><br>
+              NAMMAPANGU is an academic engineering model and technology demonstration inspired by the Public Distribution System (PDS) of Tamil Nadu. It does not claim official government endorsement or represent live statutory citizen records.
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-storage-compat.js"></script>
+
+  <!-- App Scripts -->
+  <script src="assets/js/firebase-config.js"></script>
+  <script src="assets/js/common.js"></script>
+  <script src="assets/js/hardware.js"></script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const cfg = window.NP_FIREBASE.getConfig();
+      document.getElementById("cfgProjectId").value = cfg.projectId || "nammapangu-pds";
+      document.getElementById("cfgStorageBucket").value = cfg.storageBucket || "nammapangu-pds.appspot.com";
+      document.getElementById("cfgAuthDomain").value = cfg.authDomain || "nammapangu-pds.firebaseapp.com";
+
+      const cldCfg = window.NP_FIREBASE.getCloudinaryConfig();
+      const cldNameInput = document.getElementById("cfgCloudinaryName");
+      const cldPresetInput = document.getElementById("cfgCloudinaryPreset");
+      if (cldNameInput) cldNameInput.value = cldCfg.cloudName || "";
+      if (cldPresetInput) cldPresetInput.value = cldCfg.uploadPreset || "";
+
+      const btnSaveCld = document.getElementById("btnSaveCloudinary");
+      if (btnSaveCld) {
+        btnSaveCld.addEventListener("click", () => {
+          const name = cldNameInput.value.trim();
+          const preset = cldPresetInput.value.trim();
+          localStorage.setItem("nammapangu_cloudinary_config", JSON.stringify({ cloudName: name, uploadPreset: preset }));
+          window.NP_COMMON.showToast("success", "Saved", "Cloudinary credentials updated.");
+        });
+      }
+
+      document.getElementById("btnTestFb").addEventListener("click", async () => {
+        const start = Date.now();
+        try {
+          const db = window.NP_FIREBASE.db;
+          await db.collection("products").limit(1).get();
+          const latency = Date.now() - start;
+          window.NP_COMMON.showToast("success", "Firestore Connected", `Ping: ${latency}ms. Read permissions verified.`);
+        } catch (e) {
+          window.NP_COMMON.showToast("error", "Connection Error", e.message);
+        }
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+{
+  "name": "nammapangu",
+  "version": "1.0.0",
+  "description": "NAMMAPANGU (நம்ம பங்கு) - Tamil Nadu Smart Ration Distribution & RFID Management System",
+  "author": "NAMMAPANGU Engineering Team",
+  "license": "UNLICENSED",
+  "scripts": {
+    "start": "npx -y serve public -p 3000",
+    "serve": "npx -y serve public -p 8080",
+    "firebase:login": "firebase login",
+    "firebase:deploy": "firebase deploy",
+    "firebase:rules": "firebase deploy --only firestore:rules,firestore:indexes,storage",
+    "firebase:functions": "firebase deploy --only functions",
+    "firebase:emulate": "firebase emulators:start",
+    "deploy:vercel": "vercel --prod"
+  },
+  "keywords": [
+    "tamil-nadu",
+    "pds",
+    "smart-ration",
+    "rfid",
+    "esp32",
+    "load-cell",
+    "hx711",
+    "firebase",
+    "firestore"
+  ]
+}

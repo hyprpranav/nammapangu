@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="ta, en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Citizen Smart Card Portal | NAMMAPANGU – நம்ம பங்கு</title>
+  <link rel="icon" type="image/png" href="assets/images/Tamil_nadu_logo.png">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/responsive.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Tamil:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    .session-timer-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      border-radius: 9999px;
+      background: var(--tn-saffron-600);
+      color: var(--white);
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+    }
+    .permanent-id-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.75rem;
+      background: #eff6ff;
+      color: #1d4ed8;
+      border: 1px solid #bfdbfe;
+      padding: 3px 8px;
+      border-radius: 6px;
+      font-weight: 700;
+    }
+  </style>
+</head>
+<body style="background: var(--slate-50); min-height: 100vh;">
+
+  <!-- PROTOTYPE DISCLAIMER -->
+  <div class="prototype-banner">
+    <span class="prototype-badge">Prototype Demonstration</span>
+    <span>Inspired by Tamil Nadu Public Distribution System (PDS) | Academic / Research Model – Not an Official Government Portal</span>
+  </div>
+
+  <!-- CITIZEN HEADER -->
+  <header class="app-header">
+    <div class="header-left">
+      <img src="assets/images/Tamil_nadu_logo.png" alt="TN Logo" class="tn-emblem">
+      <div class="brand-titles">
+        <div class="gov-subtext">
+          <span>தமிழ்நாடு அரசு</span> • <span>CITIZEN SMART RATION PORTAL</span>
+        </div>
+        <div class="brand-main-title">
+          <span>NAMMAPANGU</span>
+          <span class="brand-tamil">நம்ம பங்கு</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="header-right">
+      <!-- 5-MINUTE AUTO-LOGOUT SECURITY TIMER -->
+      <div class="session-timer-pill" title="For citizen data security, sessions automatically expire in 5 minutes">
+        <svg class="icon-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+        <span>Session: <span id="citizenSessionTimer">05:00</span></span>
+      </div>
+
+      <div class="cm-portrait-container">
+        <img src="assets/images/CM Vijay.jpg" alt="Hon'ble Chief Minister" class="cm-photo">
+        <div class="cm-details">
+          <span class="cm-role">மாண்புமிகு முதலமைச்சர்</span>
+          <span class="cm-name">Hon'ble Chief Minister</span>
+          <span class="cm-tag">Citizen First Governance</span>
+        </div>
+      </div>
+
+      <a href="index.html" class="btn btn-sm btn-secondary" title="Return to Portal Home">
+        <svg class="icon-svg" viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+        <span>முகப்பு (Home)</span>
+      </a>
+
+      <button id="btnCitizenLogout" class="btn btn-sm btn-secondary" style="color:var(--danger);">
+        <svg class="icon-svg" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" x2="9" y1="12" y2="12"></line></svg>
+        <span>Logout (வெளியேறு)</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- MAIN CITIZEN CONTAINER -->
+  <main style="max-width: 1200px; margin: 32px auto; padding: 0 20px;">
+
+    <!-- CITIZEN SMART CARD PROFILE CARD -->
+    <div class="card" style="border-left: 6px solid var(--tn-green-600); margin-bottom: 28px;">
+      <div class="card-body" style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px;">
+        <div style="display: flex; align-items: center; gap: 20px; flex-wrap: wrap;">
+          <img id="citizenPhoto" src="assets/images/cm_vijay.jpg" alt="Citizen Photo"
+               style="width: 84px; height: 84px; border-radius: 14px; object-fit: cover; border: 3px solid var(--tn-green-600); box-shadow: var(--shadow-md);">
+
+          <div>
+            <div style="font-size: 0.72rem; font-weight: 700; color: var(--tn-green-700); text-transform: uppercase;">
+              Verified Family Head &bull; குடும்பத் தலைவர்
+            </div>
+            <h1 id="citizenName" style="font-size: 1.55rem; font-weight: 800; color: var(--slate-900); margin-bottom: 4px;">--</h1>
+            <div style="display: flex; gap: 16px; flex-wrap: wrap; font-size: 0.85rem; color: var(--slate-600);">
+              <div>Aadhaar: <strong id="citizenAadhaar">XXXX-XXXX-XXXX</strong></div>
+              <div>Registered Mobile: <strong id="citizenMobile">+91 --</strong></div>
+            </div>
+            <div style="margin-top: 8px;">
+              <span class="permanent-id-badge" title="Permanent Smart Card UID: Assigned at first enrollment and locked permanently.">
+                <svg class="icon-svg" style="width:14px; height:14px;" viewBox="0 0 24 24"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                <span>Permanent RFID UID: <code id="citizenPermanentUid">••••••••</code></span>
+                <span class="badge badge-success" style="font-size:0.65rem;">LOCKED</span>
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <span class="badge badge-success" style="font-size: 0.82rem; padding: 6px 14px;">Active PDS Cardholder</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- MONTHLY ENTITLEMENT QUOTA SECTION -->
+    <div style="margin-bottom: 32px;">
+      <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 16px;">
+        <div>
+          <h2 style="font-size: 1.3rem; font-weight: 800; color: var(--slate-900);">
+            Monthly Ration Entitlement Quota
+            <span class="tamil-text" style="color:var(--tn-green-700); font-size:1.1rem; font-weight:700;">(மாதாந்திர உரிமைப் பொருட்கள்)</span>
+          </h2>
+          <div style="font-size: 0.82rem; color: var(--slate-500);">Current monthly allocation balance and collected quantities.</div>
+        </div>
+      </div>
+
+      <div id="citizenQuotaGrid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px;">
+        <p class="text-muted">Loading your entitlement balances...</p>
+      </div>
+    </div>
+
+    <!-- TRANSACTION & PURCHASE HISTORY SECTION -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">
+          <svg class="icon-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+          <span>Distribution Purchase History</span>
+          <span class="card-title-ta">பரிவர்த்தனை வரலாறு</span>
+        </div>
+        <div class="d-flex gap-2">
+          <button id="btnExportCitizenHistory" class="btn btn-sm btn-secondary">
+            <svg class="icon-svg" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+            <span>Download CSV</span>
+          </button>
+          <button id="btnPrintPassbook" class="btn btn-sm btn-secondary">
+            <svg class="icon-svg" viewBox="0 0 24 24"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect width="12" height="8" x="6" y="14"></rect></svg>
+            <span>Print Statement</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="card-body" style="padding:0;">
+        <div class="table-responsive" style="border:none;">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Receipt / Tx ID</th>
+                <th>Commodity</th>
+                <th>Measured Quantity</th>
+                <th>Verification</th>
+                <th>Date &amp; Time</th>
+                <th>Receipt</th>
+              </tr>
+            </thead>
+            <tbody id="citizenTxTableBody">
+              <tr><td colspan="6" class="text-muted" style="text-align:center; padding:20px;">Fetching purchase records from Cloud Firestore...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+
+  <!-- App Scripts -->
+  <script src="assets/js/firebase-config.js"></script>
+  <script src="assets/js/common.js"></script>
+  <script src="assets/js/citizen.js"></script>
+</body>
+</html>
